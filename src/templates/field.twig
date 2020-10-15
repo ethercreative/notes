@@ -1,0 +1,32 @@
+{% namespace ns %}
+	{% import "_includes/forms" as forms %}
+
+	{{ forms.textarea({
+		placeholder: 'Add a note'|t('notes'),
+		class: 'notes-input',
+		id: 'input',
+	})|attr({
+		'oninput': "this.style.height = '';this.style.height = this.scrollHeight + 2 + 'px';",
+	}) }}
+
+	<div>
+		<button class="btn notes-add" type="button" id="add">+ {{ 'Add Note'|t('notes') }}</button>
+		<div class="spinner hidden" id="spin"></div>
+	</div>
+
+	<ul class="notes" id="notes">
+		{% for note in notes %}
+			<li>
+				<div>
+					<p>{{ note.note }}</p>
+					<small>{{ note.author }} &bull; {{ note.date }}</small>
+				</div>
+				{% if allowDeleting %}
+					<a class="delete icon" role="button" title="{{ 'Delete'|t }}" data-delete-note="{{ note.id }}"></a>
+				{% endif %}
+			</li>
+		{% endfor %}
+	</ul>
+
+	{% js 'new NotesField(' ~ [ns, element.siteId, element.id, currentUser.id, allowDeleting]|json_encode ~ ');' %}
+{% endnamespace %}

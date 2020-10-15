@@ -1,0 +1,34 @@
+.notes {
+	margin-top: 12px;
+	list-style: none;
+}
+.notes-add {
+	margin-top: 8px;
+}
+.notes-input {
+	resize: none;
+}
+.notes li {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+.notes li:not(:last-child) {
+	margin-bottom: 12px;
+}
+.notes a {
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.15s ease;
+}
+.notes li:hover a {
+	opacity: 1;
+	pointer-events: all;
+}
+.notes p {
+	margin-bottom: 0;
+}
+.notes small {
+	color: #9aa5b1;
+	font-size: 11px;
+}

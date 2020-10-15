@@ -1,0 +1,10 @@
+{% import '_includes/forms' as forms %}
+
+{{ forms.lightswitchField({
+	first: true,
+	label: 'Allow Deleting'|t('notes'),
+	instructions: 'Allow users to delete notes'|t('notes'),
+	id: 'allowDeleting',
+	name: 'allowDeleting',
+	on: allowDeleting
+}) }}
