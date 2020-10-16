@@ -3,7 +3,7 @@
   "description": "A note taking field type for Craft CMS 3",
   "version": "1.0.0",
   "type": "craft-plugin",
-  "license": "MIT",
+  "license": "proprietary",
   "minimum-stability": "dev",
   "require": {
     "craftcms/cms": "^3.5"
