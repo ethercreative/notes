@@ -9,10 +9,8 @@
 namespace ether\notes\controllers;
 
 use Craft;
-use craft\elements\User;
 use craft\web\Controller;
-use DateTime;
-use ether\notes\Field;
+use ether\notes\Notes;
 
 /**
  * Class FieldController
@@ -32,17 +30,22 @@ class FieldController extends Controller
 		$userId = $request->getRequiredBodyParam('userId');
 		$note = $request->getRequiredBodyParam('note');
 
-		Craft::$app->getDb()->createCommand()
-			->insert(
-				Field::$table,
-				compact('siteId', 'elementId', 'userId', 'note')
-			)
-			->execute();
+		$res = Notes::getInstance()->do->add(
+			$elementId,
+			$siteId,
+			$userId,
+			$note
+		);
 
-		$user = User::findOne(['id' => $userId]);
-		$meta = $user->fullName ?: $user->username . ' &bull; ' . (new DateTime())->format(Field::$dateFormat);
+		return $this->asJson($res);
+	}
 
-		return $this->asJson(compact('meta'));
+	public function actionDelete ()
+	{
+		$id = Craft::$app->getRequest()->getRequiredBodyParam('id');
+		Notes::getInstance()->do->delete($id);
+
+		return $this->asJson(1);
 	}
 
 }

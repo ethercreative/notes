@@ -8,6 +8,7 @@
 
 namespace ether\notes\web;
 
+use Craft;
 use craft\web\AssetBundle;
 
 /**
@@ -24,6 +25,8 @@ class NotesAsset extends AssetBundle
 		$this->sourcePath = __DIR__;
 		$this->css = ['notes.css'];
 		$this->js = ['notes.js'];
+
+		Craft::$app->getView()->registerTranslations('app', ['Delete']);
 
 		parent::init();
 	}

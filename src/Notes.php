@@ -18,6 +18,7 @@ use yii\base\Event;
  *
  * @author  Ether Creative
  * @package ether\notes
+ * @property Service $do
  */
 class Notes extends Plugin
 {
@@ -25,6 +26,10 @@ class Notes extends Plugin
 	public function init ()
 	{
 		parent::init();
+
+		$this->setComponents([
+			'do' => Service::class,
+		]);
 
 		Event::on(
 			Fields::class,

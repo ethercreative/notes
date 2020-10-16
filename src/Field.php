@@ -10,12 +10,7 @@ namespace ether\notes;
 
 use Craft;
 use craft\base\ElementInterface;
-use craft\db\Query;
-use craft\elements\User;
-use craft\helpers\ArrayHelper;
-use craft\helpers\DateTimeHelper;
 use ether\notes\web\NotesAsset;
-use yii\db\Expression;
 
 /**
  * Class Field
@@ -55,44 +50,10 @@ class Field extends \craft\base\Field
 		if (!$element)
 			return [];
 
-		$where = [
-			'elementId' => $element->id,
-		];
-
-		if ($this->getIsTranslatable($element))
-			$where['siteId'] = $element->siteId;
-
-		$rawNotes = (new Query())
-			->select('id, note, userId, dateCreated')
-			->from(self::$table)
-			->where($where)
-			->orderBy('dateCreated desc')
-			->all();
-
-		$select = <<<SQL
-[[elements]].[[id]],
-CASE WHEN NULLIF([[users.firstName]], '') is null THEN [[users.username]] ELSE CONCAT([[users.firstName]], " ", [[users.lastName]]) END
-SQL;
-
-		$users = User::find()
-			->select(new Expression($select))
-			->id(ArrayHelper::getColumn($rawNotes, 'userId'))
-			->pairs();
-
-		$notes = [];
-
-		foreach ($rawNotes as $note)
-		{
-			$notes[] = new Note([
-				'id' => $note['id'],
-				'note' => $note['note'],
-				'author' => $users[$note['userId']],
-				'userId' => $note['userId'],
-				'date' => DateTimeHelper::toDateTime($note['dateCreated'])->format(self::$dateFormat),
-			]);
-		}
-
-		return $notes;
+		return Notes::getInstance()->do->getNotesByElement(
+			$element,
+			$this->getIsTranslatable($element)
+		);
 	}
 
 	public function getSettingsHtml ()
