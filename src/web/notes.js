@@ -17,7 +17,7 @@ function NotesField ([ns, siteId, elementId, userId, allowDeleting]) {
 			, p = document.createElement('p')
 			, s = document.createElement('small')
 			, a = document.createElement('a');
-		p.textContent = note;
+		p.innerHTML = note.replace(/</g, '&lt;').replace(/\n/g, '<br/>');
 		s.innerHTML = data.meta;
 		d.appendChild(p);
 		d.appendChild(s);

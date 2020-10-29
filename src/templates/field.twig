@@ -18,7 +18,7 @@
 		{% for note in notes %}
 			<li>
 				<div>
-					<p>{{ note.note }}</p>
+					<p>{{ note.note|nl2br }}</p>
 					<small>{{ note.author }} &bull; {{ note.date }}</small>
 				</div>
 				{% if allowDeleting %}
