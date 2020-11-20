@@ -42,7 +42,7 @@ class Service extends Component
 			->scalar();
 
 		$user = User::findOne(['id' => $userId]);
-		$meta = $user->fullName ?: $user->username . ' &bull; ' . (new DateTime())->format(Field::$dateFormat);
+		$meta = ($user->fullName ?: $user->username) . ' &bull; ' . (new DateTime())->format(Field::$dateFormat);
 
 		return compact('meta', 'id');
 	}
