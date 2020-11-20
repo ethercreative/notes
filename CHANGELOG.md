@@ -1,4 +1,7 @@
 ## [Unreleased] 1.0.3
+### Added
+- Add more granular notes add/delete permissions (Closes #1)
+
 ### Fixed
 - Fix note meta only returning full name if user has one when adding notes (Fixes #2)
 

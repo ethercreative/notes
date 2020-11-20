@@ -8,9 +8,12 @@
 
 namespace ether\notes;
 
+use Craft;
 use craft\base\Plugin;
 use craft\events\RegisterComponentTypesEvent;
+use craft\events\RegisterUserPermissionsEvent;
 use craft\services\Fields;
+use craft\services\UserPermissions;
 use yii\base\Event;
 
 /**
@@ -36,11 +39,32 @@ class Notes extends Plugin
 			Fields::EVENT_REGISTER_FIELD_TYPES,
 			[$this, 'onRegisterFieldTypes']
 		);
+
+		Event::on(
+			UserPermissions::class,
+			UserPermissions::EVENT_REGISTER_PERMISSIONS,
+			[$this, 'onRegisterPermissions']
+		);
 	}
 
 	public function onRegisterFieldTypes (RegisterComponentTypesEvent $event)
 	{
 		$event->types[] = Field::class;
+	}
+
+	public function onRegisterPermissions (RegisterUserPermissionsEvent $event)
+	{
+		$event->permissions['Notes'] = [
+			'addNotes' => [
+				'label' => Craft::t('notes', 'Add notes'),
+			],
+			'deleteOwnNotes' => [
+				'label' => Craft::t('notes', 'Delete own notes'),
+			],
+			'deleteAllNotes' => [
+				'label' => Craft::t('notes', 'Delete all notes'),
+			],
+		];
 	}
 
 }

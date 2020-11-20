@@ -1,10 +1,18 @@
 {% import '_includes/forms' as forms %}
 
-{{ forms.lightswitchField({
+{{ forms.selectField({
 	first: true,
-	label: 'Allow Deleting'|t('notes'),
-	instructions: 'Allow users to delete notes'|t('notes'),
-	id: 'allowDeleting',
+	label: 'Adding'|t('notes'),
+	instructions: 'Manage who can add notes'|t('notes'),
+	name: 'allowAdding',
+	options: addOpts,
+	value: allowAdding,
+}) }}
+
+{{ forms.selectField({
+	label: 'Deleting'|t('notes'),
+	instructions: 'Manage who can delete notes'|t('notes'),
 	name: 'allowDeleting',
-	on: allowDeleting
+	options: deleteOpts,
+	value: allowDeleting,
 }) }}

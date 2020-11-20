@@ -1,18 +1,20 @@
 {% namespace ns %}
-	{% import "_includes/forms" as forms %}
+	{% if allowAdding %}
+		{% import "_includes/forms" as forms %}
 
-	{{ forms.textarea({
-		placeholder: 'Add a note'|t('notes'),
-		class: 'notes-input',
-		id: 'input',
-	})|attr({
-		'oninput': "this.style.height = '';this.style.height = this.scrollHeight + 2 + 'px';",
-	}) }}
+		{{ forms.textarea({
+			placeholder: 'Add a note'|t('notes'),
+			class: 'notes-input',
+			id: 'input',
+		})|attr({
+			'oninput': "this.style.height = '';this.style.height = this.scrollHeight + 2 + 'px';",
+		}) }}
 
-	<div>
-		<button class="btn notes-add" type="button" id="add">+ {{ 'Add Note'|t('notes') }}</button>
-		<div class="spinner hidden" id="spin"></div>
-	</div>
+		<div>
+			<button class="btn notes-add" type="button" id="add">+ {{ 'Add Note'|t('notes') }}</button>
+			<div class="spinner hidden" id="spin"></div>
+		</div>
+	{% endif %}
 
 	<ul class="notes" id="notes">
 		{% for note in notes %}

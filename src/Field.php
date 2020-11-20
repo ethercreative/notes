@@ -21,11 +21,21 @@ use ether\notes\web\NotesAsset;
 class Field extends \craft\base\Field
 {
 
+	const ADD_ANY = 'addAny';
+	const ADD_PERMISSION = 'addPermission';
+	const ADD_NONE = 'addNone';
+	const DELETE_ANY = 'deleteAny';
+	const DELETE_PERMISSION = 'deletePermission';
+	const DELETE_NONE = 'deleteNone';
+
 	public static $table = '{{%notes}}';
 	public static $dateFormat = 'M j, Y g:ia';
 
-	/** @var bool Will allow the deleting of notes if true */
-	public $allowDeleting = false;
+	/** @var bool|string Manage who can add notes */
+	public $allowAdding = self::ADD_PERMISSION;
+
+	/** @var bool|string Manage who can delete notes */
+	public $allowDeleting = self::DELETE_PERMISSION;
 
 	public static function displayName (): string
 	{
@@ -58,8 +68,16 @@ class Field extends \craft\base\Field
 
 	public function getSettingsHtml ()
 	{
+		// 1.0.2 back-compat
+		$allowDeleting = $this->allowDeleting;
+		if ($allowDeleting === true) $allowDeleting = self::DELETE_ANY;
+		elseif ($allowDeleting === false) $allowDeleting = self::DELETE_NONE;
+
 		return Craft::$app->getView()->renderTemplate('notes/settings', [
-			'allowDeleting' => $this->allowDeleting,
+			'allowAdding' => $this->allowAdding,
+			'allowDeleting' => $allowDeleting,
+			'addOpts' => self::_addOpts(),
+			'deleteOpts' => self::_deleteOpts(),
 		]);
 	}
 
@@ -75,8 +93,64 @@ class Field extends \craft\base\Field
 			'ns' => $this->handle,
 			'element' => $element,
 			'notes' => $value,
-			'allowDeleting' => $this->allowDeleting,
+			'allowAdding' => $this->_canAdd(),
+			'allowDeleting' => $this->_canDelete(),
 		]);
+	}
+
+	// Helpers
+	// =========================================================================
+
+	private static function _addOpts ()
+	{
+		return [
+			self::ADD_ANY => Craft::t('notes', 'All users'),
+			self::ADD_PERMISSION => Craft::t('notes', 'User permission'),
+			self::ADD_NONE => Craft::t('notes', 'Disabled'),
+		];
+	}
+
+	private static function _deleteOpts ()
+	{
+		return [
+			self::DELETE_ANY => Craft::t('notes', 'All users'),
+			self::DELETE_PERMISSION => Craft::t('notes', 'User permission'),
+			self::DELETE_NONE => Craft::t('notes', 'Disabled'),
+		];
+	}
+
+	private function _canAdd ()
+	{
+		switch ($this->allowAdding)
+		{
+			case self::ADD_PERMISSION:
+				return Craft::$app->user->checkPermission('addNotes');
+			case self::ADD_NONE:
+				return false;
+			default:
+			case self::ADD_ANY:
+				return true;
+		}
+	}
+
+	private function _canDelete ()
+	{
+		$user = Craft::$app->getUser();
+
+		switch ($this->allowDeleting)
+		{
+			case self::DELETE_PERMISSION:
+				return $user->checkPermission('deleteAllNotes')
+					? true
+					: $user->checkPermission('deleteOwnNotes')
+						? 'own'
+						: false;
+			case self::DELETE_NONE:
+				return false;
+			default:
+			case self::DELETE_ANY:
+				return true;
+		}
 	}
 
 }

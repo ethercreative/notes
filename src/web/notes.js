@@ -34,7 +34,7 @@ function NotesField ([ns, siteId, elementId, userId, allowDeleting]) {
 		spin.classList.add('hidden');
 	};
 
-	input.addEventListener('keydown', e => {
+	input && input.addEventListener('keydown', e => {
 		if (!(e.key === 'Enter' && e.metaKey)) return;
 		save();
 	});
@@ -43,7 +43,7 @@ function NotesField ([ns, siteId, elementId, userId, allowDeleting]) {
 		a.addEventListener('click', NotesField.delete);
 	});
 
-	add.addEventListener('click', save);
+	add && add.addEventListener('click', save);
 }
 
 NotesField.delete = async e => {
