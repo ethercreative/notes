@@ -1,7 +1,7 @@
 {
   "name": "ether/notes",
   "description": "A note taking field type for Craft CMS 3",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "craft-plugin",
   "license": "proprietary",
   "minimum-stability": "dev",

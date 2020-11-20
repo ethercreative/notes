@@ -1,4 +1,4 @@
-## [Unreleased] 1.0.3
+## 1.0.3 - 2020-11-20
 ### Added
 - Add more granular notes add/delete permissions (Closes #1)
 
