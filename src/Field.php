@@ -142,9 +142,9 @@ class Field extends \craft\base\Field
 			case self::DELETE_PERMISSION:
 				return $user->checkPermission('deleteAllNotes')
 					? true
-					: $user->checkPermission('deleteOwnNotes')
+					: ($user->checkPermission('deleteOwnNotes')
 						? 'own'
-						: false;
+						: false);
 			case self::DELETE_NONE:
 				return false;
 			default:

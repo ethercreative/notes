@@ -1,3 +1,7 @@
+## 1.0.4 - 2020-12-01
+### Fixed
+- Fix `a ? b : c ? d : e` deprecation warning (Fixes #3)
+
 ## 1.0.3 - 2020-11-20
 ### Added
 - Add more granular notes add/delete permissions (Closes #1)
