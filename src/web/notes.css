@@ -28,7 +28,8 @@
 .notes p {
 	margin-bottom: 0;
 }
-.notes small {
+.notes small,
+.notes-small {
 	color: #9aa5b1;
 	font-size: 11px;
 }

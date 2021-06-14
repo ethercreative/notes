@@ -15,6 +15,7 @@ use craft\db\Query;
 use craft\elements\User;
 use craft\helpers\ArrayHelper;
 use craft\helpers\DateTimeHelper;
+use craft\helpers\ElementHelper;
 use DateTime;
 use yii\db\Expression;
 
@@ -56,6 +57,9 @@ class Service extends Component
 
 	public function getNotesByElement (ElementInterface $element, $translatable = false)
 	{
+		if ($element->getIsDraft() || $element->getIsRevision())
+			$element = ElementHelper::sourceElement($element);
+
 		$where = [
 			'elementId' => $element->id,
 		];

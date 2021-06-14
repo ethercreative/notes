@@ -2,6 +2,10 @@
 	{% if allowAdding %}
 		{% import "_includes/forms" as forms %}
 
+		{% if element.isDraft or element.isRevision %}
+			<small class="notes-small">It looks like you're editing a {{ element.isDraft ? 'draft' : 'revision' }}. Be aware that notes are shared across all versions of an {{ element.className|split('\\')|last }}.</small>
+		{% endif %}
+
 		{{ forms.textarea({
 			placeholder: 'Add a note'|t('notes'),
 			class: 'notes-input',

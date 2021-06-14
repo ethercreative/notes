@@ -1,3 +1,7 @@
+## 1.0.5 - 2021-06-14
+### Fixed
+- Fix notes not being visible on drafts / revisions (Fixes #4)
+
 ## 1.0.4 - 2020-12-01
 ### Fixed
 - Fix `a ? b : c ? d : e` deprecation warning (Fixes #3)
