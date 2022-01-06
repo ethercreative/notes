@@ -1,3 +1,7 @@
+## 1.0.6 - 2022-01-06
+### Fixed
+- Fix error when displaying a note from a suspended or deleted user (Fixes #5)
+
 ## 1.0.5 - 2021-06-14
 ### Fixed
 - Fix notes not being visible on drafts / revisions (Fixes #4)

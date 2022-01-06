@@ -84,6 +84,7 @@ SQL;
 		$users = User::find()
 			->select(new Expression($select))
 			->id($userIds)
+			->anyStatus()
 			->pairs();
 
 		$notes = [];
@@ -93,7 +94,7 @@ SQL;
 			$notes[] = new Note([
 				'id' => $note['id'],
 				'note' => $note['note'],
-				'author' => $users[$note['userId']],
+				'author' => @$users[$note['userId']] ?? '[Deleted]',
 				'date' => DateTimeHelper::toDateTime($note['dateCreated'])->format(Field::$dateFormat),
 
 				'elementId' => $note['elementId'],
