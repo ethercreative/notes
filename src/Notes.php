@@ -26,7 +26,7 @@ use yii\base\Event;
 class Notes extends Plugin
 {
 
-	public function init ()
+	public function init(): void
 	{
 		parent::init();
 
@@ -47,22 +47,25 @@ class Notes extends Plugin
 		);
 	}
 
-	public function onRegisterFieldTypes (RegisterComponentTypesEvent $event)
+	public function onRegisterFieldTypes(RegisterComponentTypesEvent $event): void
 	{
 		$event->types[] = Field::class;
 	}
 
-	public function onRegisterPermissions (RegisterUserPermissionsEvent $event)
+	public function onRegisterPermissions(RegisterUserPermissionsEvent $event): void
 	{
-		$event->permissions['Notes'] = [
-			'addNotes' => [
-				'label' => Craft::t('notes', 'Add notes'),
-			],
-			'deleteOwnNotes' => [
-				'label' => Craft::t('notes', 'Delete own notes'),
-			],
-			'deleteAllNotes' => [
-				'label' => Craft::t('notes', 'Delete all notes'),
+		$event->permissions['notes'] = [
+			'heading' => 'Notes',
+			'permissions' => [
+				'addNotes' => [
+					'label' => Craft::t('notes', 'Add notes'),
+				],
+				'deleteOwnNotes' => [
+					'label' => Craft::t('notes', 'Delete own notes'),
+				],
+				'deleteAllNotes' => [
+					'label' => Craft::t('notes', 'Delete all notes'),
+				],
 			],
 		];
 	}

@@ -55,7 +55,7 @@ class Field extends \craft\base\Field
 		];
 	}
 
-	public function normalizeValue ($value, ElementInterface $element = null)
+	public function normalizeValue ($value, ElementInterface $element = null): mixed
 	{
 		if (!$element)
 			return [];
@@ -66,7 +66,7 @@ class Field extends \craft\base\Field
 		);
 	}
 
-	public function getSettingsHtml ()
+	public function getSettingsHtml (): ?string
 	{
 		// 1.0.2 back-compat
 		$allowDeleting = $this->allowDeleting;
@@ -81,7 +81,7 @@ class Field extends \craft\base\Field
 		]);
 	}
 
-	protected function inputHtml ($value, ElementInterface $element = null): string
+	protected function inputHtml ($value, ?ElementInterface $element, bool $inline): string
 	{
 		if (!$element || !$element->id)
 			return Craft::t('notes', 'You must save the element before you can add notes!');
