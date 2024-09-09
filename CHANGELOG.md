@@ -1,3 +1,7 @@
+## 5.0.0 - 2024-09-09
+### Changed
+- Updated for Craft 5
+
 ## 1.0.6 - 2022-01-06
 ### Fixed
 - Fix error when displaying a note from a suspended or deleted user (Fixes #5)
