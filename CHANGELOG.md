@@ -1,6 +1,6 @@
-## 5.0.0 - 2024-09-09
+## 4.0.0 - 2024-09-09
 ### Changed
-- Updated for Craft 5
+- Updated for Craft 4
 
 ## 1.0.6 - 2022-01-06
 ### Fixed

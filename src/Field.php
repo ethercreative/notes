@@ -81,7 +81,7 @@ class Field extends \craft\base\Field
 		]);
 	}
 
-	protected function inputHtml ($value, ?ElementInterface $element, bool $inline): string
+	protected function inputHtml ($value, ?ElementInterface $element = null): string
 	{
 		if (!$element || !$element->id)
 			return Craft::t('notes', 'You must save the element before you can add notes!');
